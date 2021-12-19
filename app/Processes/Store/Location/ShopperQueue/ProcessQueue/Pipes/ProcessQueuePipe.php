@@ -88,12 +88,17 @@ class ProcessQueuePipe extends ShopperQueueServicePipeline implements Pipe
      */
     private function activatePendingShoppers($shoppers, int $activeStatusId): void
     {
+        /** I think 'check-in' should be updated again when shopper's status from 'pending' to 'active'.
+         *  Otherwise, after two hours. the pending shoppers will be removed from the queue because they
+         *  spend more time on pending.
+         */
         if( is_iterable($shoppers) ){
             foreach ($shoppers as $shopper){
                 $this->shopper->update(
                     $shopper['id'],
                     [
-                        'status_id' => $activeStatusId
+                        'status_id' => $activeStatusId,
+                        'check_in' => date('Y-m-d H:i:s')
                     ]
                 );
             }

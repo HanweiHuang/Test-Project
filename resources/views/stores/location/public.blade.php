@@ -22,8 +22,50 @@
 <div class="container">
     <div class="text-center mt-5">
         <h1>Welcome To {{ $location['location_name'] }}</h1>
-        <p class="lead">A complete project boilerplate built with Bootstrap</p>
-        <p>Bootstrap v5.1.3</p>
+        {{--<p class="lead">A complete project boilerplate built with Bootstrap</p>--}}
+        {{--<p>Bootstrap v5.1.3</p>--}}
+
+
+        <div class="mt-5">
+
+
+            <form method="post" action="{{ route('public.enter', [$location['uuid']]) }}">
+
+                @csrf
+
+                <div class="form-group my-2">
+                    <input type="text" class="form-control" id="first_name" name="first_name"  placeholder="First Name">
+                </div>
+
+                <div class="form-group my-2">
+                    <input type="text" class="form-control" id="last_name" name="last_name"  placeholder="Last Name">
+                </div>
+
+                <div class="form-group my-2">
+                    <input type="email" class="form-control" id="email"  name="email" placeholder="Email">
+                </div>
+
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li> {{ $error }} </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <div class="mt-5">
+                    <button type="submit" class="btn btn-dark">Check In</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <!-- Bootstrap core JS-->

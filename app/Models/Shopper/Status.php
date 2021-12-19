@@ -14,6 +14,11 @@ class Status extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /** status value*/
+    const Active = 'Active';
+    const Pending = 'Pending';
+    const Completed = 'Completed';
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

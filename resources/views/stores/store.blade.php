@@ -18,20 +18,20 @@
 
                     <table class="w-full whitespace-no-wrapw-full whitespace-no-wrap mt-6">
                         <thead>
-                            <tr>
-                                <th>
-                                    Location
-                                </th>
-                                <th>
-                                    QR Code
-                                </th>
-                                <th>
-                                    Shopper Limit
-                                </th>
-                                <th>
-                                    View Queue
-                                </th>
-                            </tr>
+                        <tr>
+                            <th>
+                                Location
+                            </th>
+                            <th>
+                                QR Code
+                            </th>
+                            <th>
+                                Shopper Limit
+                            </th>
+                            <th>
+                                View Queue
+                            </th>
+                        </tr>
                         </thead>
                         <tbody>
                         @if( is_iterable($store['locations']) )
@@ -50,7 +50,17 @@
                                         </x-table-column>
 
                                         <x-table-column>
-                                            {{ $location['shopper_limit'] ?? null }}
+                                            {{--{{ $location['shopper_limit'] ?? null }}--}}
+
+                                            @if( isset($store['uuid']) && isset($location['shopper_limit']))
+                                                {{ $location['shopper_limit'] }}
+                                                <a href="{{ route('store.location.edit', ['storeUuid' => $store->uuid, 'locationUuid' => $location['uuid']]) }}"
+                                                   class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                                    Edit
+                                                </a>
+                                            @else
+                                                {{ null }}
+                                            @endif
                                         </x-table-column>
 
                                         <x-table-column>
